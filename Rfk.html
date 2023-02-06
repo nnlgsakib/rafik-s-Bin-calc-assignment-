@@ -1,0 +1,173 @@
+<html>
+  <head>
+    <title>Rofiq's Bin calc</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+      <h1>Rofiq's Bin calc</h1>
+    <div>
+      <label for="input">Input:</label>
+      <input type="text" id="input">
+    </div>
+    <div>
+      <label for="output">Output:</label>
+      <input type="text" id="output" disabled>
+    </div>
+    <div>
+      <label for="from">From:</label>
+      <select id="from">
+        <option value="binary">Binary</option>
+        <option value="decimal">Decimal</option>
+        <option value="hexadecimal">Hexadecimal</option>
+        <option value="text">Text</option>
+      </select>
+    </div>
+    <div>
+      <label for="to">To:</label>
+      <select id="to">
+        <option value="binary">Binary</option>
+        <option value="decimal">Decimal</option>
+        <option value="hexadecimal">Hexadecimal</option>
+        <option value="text">Text</option>
+      </select>
+    </div>
+    <button id="convert-button">Convert</button>
+  </body>
+  <script>
+    // Your JavaScript code goes here
+    
+    
+    
+    const input = document.getElementById("input");
+const output = document.getElementById("output");
+const fromSelect = document.getElementById("from");
+const toSelect = document.getElementById("to");
+const convertButton = document.getElementById("convert-button");
+
+convertButton.addEventListener("click", () => {
+  let result;
+  const inputValue = input.value;
+  const from = fromSelect.value;
+  const to = toSelect.value;
+  
+  // Implement the conversion logic based on the selected options
+  switch (from) {
+    case "binary":
+      switch (to) {
+        case "binary":
+          result = inputValue;
+          break;
+        case "decimal":
+          result = parseInt(inputValue, 2).toString(10);
+          break;
+        case "hexadecimal":
+          result = parseInt(inputValue, 2).toString(16);
+          break;
+        case "text":
+          result = binaryToText(inputValue);
+          break;
+      }
+      break;
+    case "decimal":
+      switch (to) {
+        case "binary":
+          result = parseInt(inputValue, 10).toString(2);
+          break;
+        case "decimal":
+          result = inputValue;
+          break;
+        case "hexadecimal":
+          result = parseInt(inputValue, 10).toString(16);
+          break;
+   case "text":
+result = decimalToText(inputValue);
+break;
+}
+break;
+case "hexadecimal":
+switch (to) {
+case "binary":
+result = parseInt(inputValue, 16).toString(2);
+break;
+case "decimal":
+result = parseInt(inputValue, 16).toString(10);
+break;
+case "hexadecimal":
+result = inputValue;
+break;
+case "text":
+result = hexadecimalToText(inputValue);
+break;
+}
+break;
+case "text":
+switch (to) {
+case "binary":
+result = textToBinary(inputValue);
+break;
+case "decimal":
+result = textToDecimal(inputValue);
+break;
+case "hexadecimal":
+result = textToHexadecimal(inputValue);
+break;
+case "text":
+result = inputValue;
+break;
+}
+break;
+}
+
+output.value = result;
+});
+
+function binaryToText(input) {
+let result = "";
+const inputArray = input.match(/.{1,8}/g);
+for (let i = 0; i < inputArray.length; i++) {
+result += String.fromCharCode(parseInt(inputArray[i], 2));
+}
+return result;
+}
+
+function decimalToText(input) {
+return String.fromCharCode(parseInt(input));
+}
+
+function hexadecimalToText(input) {
+let result = "";
+const inputArray = input.match(/.{1,2}/g);
+for (let i = 0; i < inputArray.length; i++) {
+result += String.fromCharCode(parseInt(inputArray[i], 16));
+}
+return result;
+}
+
+function textToBinary(input) {
+let result = "";
+for (let i = 0; i < input.length; i++) {
+result += input[i].charCodeAt(0).toString(2).padStart(8, "0");
+}
+return result;
+}
+
+function textToDecimal(input) {
+let result = "";
+for (let i = 0; i < input.length; i++) {
+result += input[i].charCodeAt(0).toString(10);
+}
+return result;
+}
+
+function textToHexadecimal(input) {
+let result = "";
+for (let i = 0; i < input.length; i++) {
+result += input[i].charCodeAt(0).toString(16);
+}
+return result;
+}       
+
+
+    
+  </script>
+</html>
